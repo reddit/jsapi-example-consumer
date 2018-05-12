@@ -5,30 +5,30 @@
 console.log("Hello. This message was sent from scripts/inject.js");
 
 const NAME = "test";
-main();
 
-function main() {
-  var modifyDiv = (e) => {
-    var container;
-    const doc = e.target;
-    console.log(doc.childNodes);
-    console.log(e);
-    if (!doc.childNodes) {
-      return false;
-    }
-    for (var i = 0; i < doc.childNodes.length; i++) {
-      if (doc.childNodes[i].dataset.name === NAME) {
-        container = doc.childNodes[i];
-        break;
-      }        
-    }
-    container.innerHTML = e.detail.type + "1";
-  }
-  var acknowledge = (e) => {
-    console.log(e)
-  }
-  document.addEventListener('reddit', modifyDiv, true);
+const addElement = (e) => {
+  acknowledge(e);
+
+  const element = document.createElement('span');
+  element.textContent = '⚠';
+  element.title = e.detail.type;
+  
+  e.target.querySelector(`[data-name="${NAME}"]`).appendChild(element);
+};
+
+var acknowledge = (e) => {
+  console.log(e)
+};
+
+const main = () => {
+  document.addEventListener('reddit', addElement, true);
   document.addEventListener('reddit.urlChanged', acknowledge, true);
-  var event = new CustomEvent("reddit.ready", { detail: { name: NAME } })
-  document.dispatchEvent(event);
-}
+
+  var meta = document.createElement('meta');
+  meta.name = 'jsapi.consumer';
+  meta.content = NAME;
+  document.head.appendChild(meta);
+  meta.dispatchEvent(new CustomEvent("reddit.ready"));
+};
+
+main();
