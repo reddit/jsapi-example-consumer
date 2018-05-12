@@ -1,0 +1,15 @@
+{
+  "name": "Test Extension",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "",
+  "default_locale": "en",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "src/inject/inject.js"
+      ]
+    }
+  ]
+}
