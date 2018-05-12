@@ -21,6 +21,10 @@ var acknowledge = (e) => {
 };
 
 const main = () => {
+  if (!document.querySelector('meta[name="jsapi"]')) {
+    return;
+  }
+
   document.addEventListener('reddit', addElement, true);
   document.addEventListener('reddit.urlChanged', acknowledge, true);
 
