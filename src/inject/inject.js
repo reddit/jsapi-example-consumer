@@ -13,7 +13,9 @@ const addElement = (e) => {
   element.textContent = '⚠';
   element.title = e.detail.type;
   
-  e.target.querySelector(`[data-name="${NAME}"]`).appendChild(element);
+  requestAnimationFrame(function() {
+    e.target.querySelector(`[data-name="${NAME}"]`).appendChild(element);
+  });
 };
 
 var acknowledge = (e) => {
