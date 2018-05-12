@@ -1,10 +1,13 @@
 
-	// ----------------------------------------------------------
-	// This part of the script triggers when page is done loading
+// ----------------------------------------------------------
+// This part of the script triggers when page is done loading
+// ----------------------------------------------------------
 console.log("Hello. This message was sent from scripts/inject.js");
-	// ----------------------------------------------------------
-  const NAME = "test";
 
+const NAME = "test";
+main();
+
+function main() {
   var modifyDiv = (e) => {
     var container;
     const doc = e.target;
@@ -27,4 +30,5 @@ console.log("Hello. This message was sent from scripts/inject.js");
   document.addEventListener('reddit', modifyDiv, true);
   document.addEventListener('reddit.urlChanged', acknowledge, true);
   var event = new CustomEvent("reddit.ready", { detail: { name: NAME } })
-  document.dispatchEvent(event)
+  document.dispatchEvent(event);
+}
